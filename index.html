@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Change Mode</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      #neon {
+        display: none;
+      }
+      #neon.active {
+        display: block;
+      }
+      body {
+        transition: 0.5s;
+      }
+      body.active {
+        background: black;
+        transition: 0.5s;
+      }
+      #toggle {
+        box-shadow: inset 5px 5px 8px gray;
+        transition: 0.5s;
+      }
+      #toggle.active {
+        background: #444;
+        box-shadow: inset 5px 5px 8px #111;
+        transition: 0.5s;
+      }
+      #toggle.active:hover {
+        transition: 0.5s;
+        box-shadow: 0 0 0.2rem white, 0 0 0.2rem white, 0 0 0.8rem red,
+          0 0 0.6rem red, 0 0 2.6rem red, inset 0 0 1.1rem red;
+      }
+      #indicator {
+        transform: scale(0.8);
+        transition: 0.5s;
+      }
+      #indicator.active {
+        transition: 0.5s;
+        margin-left: 20px;
+        background: #c5c2c2;
+      }
+      #option-card {
+        box-shadow: 0 6px 10px purple;
+        transition: 0.6s;
+      }
+      #option-card.active {
+        transition: 0.6s;
+        box-shadow: 0 0 0.2rem white, 0 0 0.2rem white, 0 0 1rem red,
+          0 0 0.8rem red, 0 0 2.8rem red, inset 0 0 1.3rem red;
+        background: linear-gradient(to bottom right, #111, #555);
+      }
+      #selection,
+      #inputValue {
+        transition: ease-in 0.5s;
+      }
+      #selection.active,
+      #inputValue.active {
+        transition: 0.5;
+        border: 1px solid white;
+      }
+      #selection.active:hover,
+      #inputValue.active:hover {
+        transition: 0.5s;
+        box-shadow: 0 0 0.2rem white, 0 0 0.2rem white, 0 0 0.8rem red,
+          0 0 0.6rem red, 0 0 2.6rem red, inset 0 0 1.1rem red;
+        border: none;
+      }
+      #button:hover {
+        transition: 0.5s;
+        box-shadow: 0 4px 10px purple;
+      }
+      #button.active {
+        transition: 0.5;
+        background: linear-gradient(to top left, #111, #555);
+      }
+      #button.active:hover {
+        transition: 0.5;
+        color: red;
+        box-shadow: 0 0 0.2rem white, 0 0 0.2rem white, 0 0 0.8rem black,
+          0 0 0.6rem black, 0 0 2.6rem black, inset 0 0 1.1rem black;
+      }
+      #card {
+        transition: 0.5s;
+        box-shadow: 0 6px 10px purple;
+      }
+      #card.active {
+        transition: 0.5;
+        background: linear-gradient(to top left, #111, #555);
+        box-shadow: 0 0 0.1rem white, 0 0 0.1rem white, 0 0 0.6rem red,
+          0 0 0.4rem red, 0 0 1.4rem red;
+      }
+      @media (max-width: 600px) {
+        html {
+          font-size: 70%;
+        }
+        #card {
+          margin-top: 13rem;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-400">
+    <section>
+      <div
+        id="card"
+        class="bg-orange-400 w-96 h-36 mx-auto mt-28 rounded-md font-serif"
+      >
+        <h3
+          class="text-center pt-4 text-3xl bg-gradient-to-tr from-blue-500 via-black to-green-600 bg-clip-text text-transparent uppercase"
+        >
+          <b>Change Mode</b>
+        </h3>
+        <p
+          class="text-center pt-6 text-gray-200 font-semibold text-md"
+          id="text"
+        >
+          Coba ubah sesuai keinginan Anda!
+        </p>
+      </div>
+    </section>
+    <section>
+      <div
+        id="option-card"
+        class="w-96 h-44 bg-gradient-to-br from-orange-400 to-fuchsia-700 mt-4 mx-auto rounded-md box-border"
+      >
+        <select
+          id="selection"
+          class="select select-info w-64 h-7 mt-10 ml-16 bg-gray-800 rounded-md text-white border-4 border-double"
+        >
+          <option disabled selected>Pilih Opsi Perubahan</option>
+          <option>Warna Latar</option>
+          <option>Jenis Font</option>
+          <option>Lebar Konten</option>
+          <option>Warna Text</option>
+          <option>Tinggi Konten</option>
+          <option id="neon">Warna Neon</option>
+        </select>
+        <input
+          type="text"
+          placeholder=" masukan value sesuai opsi"
+          class="input input-bordered w-64 h-7 mt-10 ml-16 bg-gray-800 rounded-md border-4 border-double text-white"
+          id="inputValue"
+        />
+      </div>
+      <button
+        class="flex cursor-pointer rounded-lg bg-gradient-to-br from-fuchsia-700 to-orange-400 w-80 h-10 justify-center mx-auto mt-6 p-1 text-white transition duration-200 ease-in-out hover:text-black"
+        onClick="update()"
+        id="button"
+      >
+        Perbarui Konten
+      </button>
+    </section>
+    <div id="toggle" class="w-11 h-6 bg-slate-100 mx-auto mt-4 rounded-3xl">
+      <div
+        id="indicator"
+        class="h-6 w-6 bg-slate-800 rounded-3xl shadow-inner shadow-gray-400 cursor-pointer"
+        onclick="clickBtn()"
+      ></div>
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>
